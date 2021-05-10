@@ -1,16 +1,14 @@
-version: '2.1'
+version: 2.1
+
 orbs:
-  node: circleci/node@4.3.0
-jobs:
-  test:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-          cache-path: ~/project/node_modules
-          override-ci-command: npm install
-      - run: npm run test
+  gke: circleci/gcp-gke@1.2.0 # Use the GCP GKE orb in your config
+
 workflows:
-  test_my_app:
+  main:
     jobs:
-      - test
+      - gke/publish-and-rollout-image:
+          cluster: that-bot # name of GKE cluster to be created
+          container: discord-bot # name of your Kubernetes container
+          deployment: discord-bot # name of your Kubernetes deployment
+          image: node # name of your Docker image
+          tag: $CIRCLE_SHA1 # Docker image tag - optional
