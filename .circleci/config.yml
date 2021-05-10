@@ -2,14 +2,18 @@ version: 2.1
 
 orbs:
   gke: circleci/gcp-gke@1.2.0 # Use the GCP GKE orb in your config
+  jobs:
+    update:
+      steps:
+        - run:
+            name: update gcloud
+            command: |
+              sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
+      
 
 workflows:
-  main:
+  update:
     jobs:
-      - run:
-          name: update gcloud
-          command: |
-            sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
       - gke/publish-and-rollout-image:
           cluster: that-bot # name of GKE cluster to be created
           container: discord-bot # name of your Kubernetes container
