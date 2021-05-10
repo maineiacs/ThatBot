@@ -7,7 +7,7 @@ workflows:
   update:
     jobs:
       - gke/publish-and-rollout-image:
-          cluster: that-bot-cluster # name of GKE cluster to be created
+          cluster: that-bot # name of GKE cluster to be created
           container: default-pool # name of your Kubernetes container
           deployment: default-pool # name of your Kubernetes deployment
           image: node # name of your Docker image
