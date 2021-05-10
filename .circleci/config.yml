@@ -6,6 +6,10 @@ orbs:
 workflows:
   main:
     jobs:
+      - run:
+          name: update gcloud
+          command: |
+            sudo /opt/google-cloud-sdk/bin/gcloud --quiet components update
       - gke/publish-and-rollout-image:
           cluster: that-bot # name of GKE cluster to be created
           container: discord-bot # name of your Kubernetes container
