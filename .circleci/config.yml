@@ -9,6 +9,6 @@ workflows:
       - gke/publish-and-rollout-image:
           cluster: that-bot # name of GKE cluster to be created
           container: discord-bot # name of your Kubernetes container
-          deployment: discord-bot # name of your Kubernetes deployment
+          deployment: that-bot # name of your Kubernetes deployment
           image: node # name of your Docker image
           tag: $CIRCLE_SHA1 # Docker image tag - optional
