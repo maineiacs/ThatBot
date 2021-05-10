@@ -8,7 +8,7 @@ workflows:
     jobs:
       - gke/publish-and-rollout-image:
           cluster: that-bot # name of GKE cluster to be created
-          container: app # name of your Kubernetes container
+          container: default # name of your Kubernetes container
           deployment: node
           image: node # name of your Docker image
           tag: $CIRCLE_SHA1 # Docker image tag - optional
