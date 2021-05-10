@@ -3,7 +3,7 @@ const config = require("./config.json")
 const bot = new Discord.Client();
 const fs = require("fs");
 bot.commands = new Discord.Collection();
-if(config.token === "setmeplease") return console.log("Set your token up! Go to https://www.discordapp.com/developers and generate a token from a bot user.");
+if(config.token === "") return console.log("Set your token up! Go to https://www.discordapp.com/developers and generate a token from a bot user.");
 
 fs.readdir("./commands/", (err, files) => {
 
