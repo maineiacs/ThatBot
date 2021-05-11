@@ -9,6 +9,8 @@
   "author": "Ned from {TheSourceCode}",
   "license": "ISC",
   "dependencies": {
+    "ccxt": "^1.49.75",
+    "crypto-price": "^0.0.6",
     "discord.js": "^11.3.2",
     "fs": "0.0.1-security",
     "ms": "^2.1.1",
