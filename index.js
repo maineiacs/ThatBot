@@ -2,6 +2,8 @@ const Discord = require("discord.js")
 const bot = new Discord.Client();
 const fs = require("fs");
 require('dotenv').config();
+const os = require("os");
+const hostname = os.hostname();
 
 bot.commands = new Discord.Collection();
 
@@ -28,6 +30,13 @@ fs.readdir("./commands/", (err, files) => {
 
 bot.on("ready", () => {
   console.log(bot.user.username + " is online.")
+
+  bot.channels.get('693868283325055026').send(
+      `iya. I\'ve been restarted. 
+      I\'m using the prefix ${process.env.BOT_PREFIX}
+      and running on ${hostname}`
+  );
+
 });
 
 bot.on("message", async message => {
