@@ -19,7 +19,7 @@ workflows:
   # For more details on extending your workflow, see the configuration docs: https://circleci.com/docs/2.0/configuration-reference/#workflows
   sample:
     jobs:
-      - discord/status:
+      - discord:
           fail_only: false
           webhook: "${DISCORD_STATUS_WEBHOOK}"
       - heroku/deploy-via-git:
