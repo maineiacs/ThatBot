@@ -1,11 +1,11 @@
 const Discord = require("discord.js")
-const config = require("./config.json")
 const bot = new Discord.Client();
 const fs = require("fs");
+require('dotenv').config();
 
 bot.commands = new Discord.Collection();
 
-if(config.token === "") return console.log("Set your token up! Go to https://www.discordapp.com/developers and generate a token from a bot user.");
+if(process.env.DISCORD_TOKEN === "") return console.log("Set your token up! Go to https://www.discordapp.com/developers and generate a token from a bot user.");
 
 fs.readdir("./commands/", (err, files) => {
 
@@ -37,7 +37,7 @@ bot.on("message", async message => {
   let content = message.content.split(" ");
   let command = content[0];
   let args = content.slice(1);
-  let prefix = config.prefix;
+  let prefix = process.env.BOT_PREFIX;
 
 
   //checks if message contains a command and runs it
@@ -46,4 +46,4 @@ bot.on("message", async message => {
 })
 
 
-bot.login(config.token)
+bot.login(process.env.DISCORD_TOKEN);
