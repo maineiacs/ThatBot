@@ -36,7 +36,6 @@ bot.on("ready", () => {
       I\'m using the prefix ${process.env.BOT_PREFIX}
       and running on ${hostname}`
   );
-
 });
 
 bot.on("message", async message => {
@@ -47,10 +46,23 @@ bot.on("message", async message => {
   let command = content[0];
   let args = content.slice(1);
   let prefix = process.env.BOT_PREFIX;
+  let commandName = command.slice(prefix.length);
 
+  if (commandName === 'calc') {
+    let stringMath = require('string-math');
+    let equation = message.content.slice(5);
+    let answer = '';
 
-  //checks if message contains a command and runs it
-  let commandfile = bot.commands.get(command.slice(prefix.length));
+    try {
+      answer = stringMath(equation)
+    } catch(e) {
+      answer = e.message
+    }
+
+    bot.channels.get('693868283325055026').send(answer);
+  }
+
+  let commandfile = bot.commands.get(commandName);
   if (commandfile) commandfile.run(bot,message,args);
 })
 
