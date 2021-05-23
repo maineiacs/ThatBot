@@ -41,7 +41,10 @@ bot.on("ready", () => {
 bot.on("message", async message => {
   if (message.author.bot) return;
   if (message.channel.type === 'dm') return;
-
+  
+  if (message.member.voice.channel) {
+		const connection = await message.member.voice.channel.join();
+	}
   let content = message.content.split(" ");
   let command = content[0];
   let args = content.slice(1);
