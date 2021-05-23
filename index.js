@@ -3,7 +3,6 @@ const bot = new Discord.Client();
 const fs = require("fs");
 require('dotenv').config();
 const os = require("os");
-const hostname = os.hostname();
 
 bot.commands = new Discord.Collection();
 
@@ -27,16 +26,28 @@ fs.readdir("./commands/", (err, files) => {
   });
 });
 
+bot.on("voiceStateUpdate", async (oldState, newState) => {
 
-bot.on("ready", () => {
-  console.log(bot.user.username + " is online.")
+  let newVc = newState.channel;
+  let oldVc = oldState.channel;
 
-  bot.channels.get('693868283325055026').send(
-      `iya. I\'ve been restarted. 
-      I\'m using the prefix ${process.env.BOT_PREFIX}
-      and running on ${hostname}`
-  );
-});
+  if (newVc === null) {
+    return;
+  }
+
+  newVc.join().then(connection => {
+    // Yay, it worked!
+    console.log("Successfully connected.");
+    const broadcast = bot.voice.createBroadcast();
+    console.log('Broadcasting');
+    const dispatcher = broadcast.play('mp3/nice.mp3');
+
+    console.log(bot.voice.broadcasts);
+    broadcast.end();
+  }).catch(e => {
+    console.error(e);
+  });
+})
 
 bot.on("message", async message => {
   if (message.author.bot) return;
@@ -62,7 +73,7 @@ bot.on("message", async message => {
       answer = e.message
     }
 
-    bot.channels.get('693868283325055026').send(answer);
+    bot.channels.cache.get('693868283325055026').send(answer);
   }
 
   let commandfile = bot.commands.get(commandName);
